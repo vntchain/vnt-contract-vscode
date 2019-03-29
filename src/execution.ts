@@ -1,0 +1,61 @@
+import * as child_process from 'child_process';
+
+import * as vscode from 'vscode';
+
+import * as contract from './contract';
+
+export interface Option {
+  cwd: string;
+  maxBuffer: number;
+  env: any;
+}
+
+export enum ErrorCode {
+  Cancel,
+  BufferLimitExceed
+}
+
+export interface Result {
+  error: Error;
+  stdout: string;
+  stderr: string;
+}
+
+export interface FailedExecution {
+  errorCode: ErrorCode;
+  result?: Result;
+}
+
+export function processString(
+    cmd: string, args: string[], opt: Option, token: vscode.CancellationToken,
+    input: string): Thenable<Result> {
+  opt.env = {};
+  opt.env = process.env;
+  if (contract.getConf('VNT_WASMCEPTION') != '') {
+    opt.env['VNT_WASMCEPTION'] = contract.getConf('VNT_WASMCEPTION');
+  }
+  if (contract.getConf('VNT_INCLUDE') != '') {
+    opt.env['VNT_INCLUDE'] = contract.getConf('VNT_INCLUDE');
+  }
+
+  return new Promise((resolve, reject) => {
+    let proc =
+        child_process.execFile(cmd, args, opt, (error, stdout, stderr) => {
+          if (error != null && error.message === 'stdout maxBuffer exceeded.') {
+            reject(<FailedExecution>{
+              errorCode: ErrorCode.BufferLimitExceed,
+              result: <Result> {
+                error, stdout, stderr
+              }
+            });
+          } else {
+            resolve(<Result>{error, stdout, stderr});
+          }
+        });
+    proc.stdin.end(input);
+    token.onCancellationRequested(() => {
+      process.nextTick(() => proc.kill());
+      reject(<FailedExecution>{errorCode: ErrorCode.Cancel});
+    });
+  });
+}
