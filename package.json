@@ -2,7 +2,7 @@
   "name": "vnt-contract-vscode",
   "displayName": "VNT Smart Contract",
   "description": "VNT Smart Contract Language for Visual Studio Code",
-  "version": "0.6.2",
+  "version": "0.6.3",
   "publisher": "ooozws",
   "license": "GPL-3.0",
   "icon": "vntlogo.png",
