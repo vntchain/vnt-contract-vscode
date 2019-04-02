@@ -2,7 +2,7 @@
   "name": "vnt-contract-vscode",
   "displayName": "VNT Smart Contract",
   "description": "VNT Smart Contract Language for Visual Studio Code",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "publisher": "ooozws",
   "license": "GPL-3.0",
   "icon": "vntlogo.png",
@@ -58,16 +58,6 @@
           "type": "number",
           "default": 262144,
           "description": "Tolerable size of the clang output for diagnostic"
-        },
-        "bottle.VNT_WASMCEPTION": {
-          "type": "string",
-          "default": "",
-          "description": "set wasmception path"
-        },
-        "bottle.VNT_INCLUDE": {
-          "type": "string",
-          "default": "",
-          "description": "set include path"
         }
       }
     }

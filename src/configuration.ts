@@ -17,10 +17,12 @@ export class ConfigurationTester implements vscode.Disposable {
         if ((<any>error).code === 'ENOENT') {
           vscode.window.showErrorMessage(
               'Please install [Bottle](http://https://github.com/vntchain/bottle/) or check configuration `bottle.executable`');
-        } else {
-          vscode.window.showErrorMessage(
-              'Please check your configurations: ' + stderr.toString().trim());
         }
+        // else {
+        //   vscode.window.showErrorMessage(
+        //       'Please check your configurations: ' +
+        //       stderr.toString().trim());
+        // }
       }
       this.processes.delete(proc.pid);
     });

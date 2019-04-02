@@ -29,14 +29,6 @@ export interface FailedExecution {
 export function processString(
     cmd: string, args: string[], opt: Option, token: vscode.CancellationToken,
     input: string): Thenable<Result> {
-  opt.env = {};
-  opt.env = process.env;
-  if (contract.getConf('VNT_WASMCEPTION') != '') {
-    opt.env['VNT_WASMCEPTION'] = contract.getConf('VNT_WASMCEPTION');
-  }
-  if (contract.getConf('VNT_INCLUDE') != '') {
-    opt.env['VNT_INCLUDE'] = contract.getConf('VNT_INCLUDE');
-  }
 
   return new Promise((resolve, reject) => {
     let proc =
