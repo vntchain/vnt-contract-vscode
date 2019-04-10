@@ -11,3 +11,7 @@ VNT 智能合约插件通过使用[Bottle](http://github.com/vntchain/bottle)来
 ```
 bottle help
 ```
+
+## 下载及安装
+
+在``vscode``插件市场搜索``vnt-contract-vscode``进行下载和安装
